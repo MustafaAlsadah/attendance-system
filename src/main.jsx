@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client'
 import Root from './routes/root'
 import Attend from './routes/Attend'
 import ClassAttendance from './routes/classAttendance'
+import Signup from './routes/signup'
+import Login from './routes/login'
+import AuthProvider from './contexts/AuthContext'
+import PrivateRoute from './routes/privateRouter'
 
 import '../dist/output.css'
 import '@fontsource/roboto/300.css';
@@ -10,7 +14,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-
+ 
 import {
   createBrowserRouter,
   RouterProvider,
@@ -19,22 +23,28 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
+    element: <Signup/>,
   },
   {
     path: "/attend",
-    element: <Attend/>
+    element: <Attend/>,
   },
   {
     path: "/classAttendance",
-    element: <ClassAttendance/>
-  }
+    element: <PrivateRoute exact path="/" component={ClassAttendance} />,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <React.StrictMode>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </React.StrictMode>,
 )
 
 
