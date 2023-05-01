@@ -1,25 +1,12 @@
 import { initializeApp } from "firebase/app";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { app } from "./classAttendance"
 
 import { collection, doc, getDocs, getFirestore, query, orderBy, onSnapshot
          , updateDoc, getDoc } from "firebase/firestore"
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA2oAaPEYK2AjlGIXiUbNDw11wCV6lVu8o",
-  authDomain: "attendance-system-572e3.firebaseapp.com",
-  projectId: "attendance-system-572e3",
-  storageBucket: "attendance-system-572e3.appspot.com",
-  messagingSenderId: "358203249853",
-  appId: "1:358203249853:web:4280b1c2c259496b6e13d4"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-
-const roasterRef = collection(db, 'roaster')
 
 export default function Attend(props){
 

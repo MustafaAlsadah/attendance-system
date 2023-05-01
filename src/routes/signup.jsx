@@ -1,21 +1,34 @@
 import { useState } from "react"
 import { Button, TextField } from "@mui/material"
-import { useAuth } from "../contexts/AuthContext"
 
+import { useAuth } from "../contexts/AuthContext"
+import { collection, doc, getDocs, getFirestore, query, orderBy, onSnapshot
+    , updateDoc, getDoc, setDoc } from "firebase/firestore"
+    import { app } from "./classAttendance"
 export default function Signup(props) {
-    const { signup, currentUser } = useAuth()
+    const { signup, currentUser } = useAuth() 
     const [loading, setLoading] = useState(false)
 
     async function handleSubmit(){
-        const email = document.getElementById("email-input").value
-        const password = document.getElementById("pass-input").value
-        const passwordConfirm = document.getElementById("pass-confirm-input").value
+        const email = document.getElementById("email-input").value.toLowerCase()
+        const name = document.getElementById("name-input").value.toLowerCase()
+        const password = document.getElementById("pass-input").value.toLowerCase()
+        const passwordConfirm = document.getElementById("pass-confirm-input").value.toLowerCase()
 
         try{
             setLoading(true)
             await signup(email, password)
-        }catch{
-            throw new Error("Failed to create an account")
+            const user = {
+                name: name,
+                email: email
+            }
+            
+            const db = getFirestore(app) 
+            const usersCollectionRef = collection(db, 'users')
+            setDoc(doc(usersCollectionRef, email), user)
+            console.log("User added to database")
+        }catch(error){
+            throw new Error(error.message)
         }
 
         setLoading(false)
