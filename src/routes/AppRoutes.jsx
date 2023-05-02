@@ -19,7 +19,7 @@ export default function AppRoutes() {
       <Route exact path="/" element={privateRoute(Root)}/>
       <Route path="/login" element={<Login/>} />
       <Route path="/signup" element={<Signup/>} />
-      <Route path="/attend" element={privateRoute(Attend)} />
+      <Route path="/attend/:crn" element={privateRoute(Attend)} />
       <Route path="/classAttendance/:crn" element={privateRoute(ClassAttendance)} />      
       <Route path="/profile" element={privateRoute(Profile)} />
     </Routes>

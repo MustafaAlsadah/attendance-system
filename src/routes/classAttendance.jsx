@@ -157,26 +157,6 @@ const q = query(roasterRef)
   
   
 
-  function convertNestedArrayToJSON(nestedArray) {
-    const headers = nestedArray[0];
-    const data = nestedArray.slice(1);
-    const jsonArray = [];
-  
-    for (let i = 0; i < data.length; i++) {
-      const currentRow = data[i];
-      const jsonObject = {};
-  
-      for (let j = 0; j < headers.length; j++) {
-        const currentHeader = headers[j];
-        const currentCellData = currentRow[j];
-        jsonObject[currentHeader] = currentCellData;
-      }
-  
-      jsonArray.push(jsonObject);
-    }
-  
-    return jsonArray;
-  }
   
   
   
@@ -189,8 +169,8 @@ const q = query(roasterRef)
         <div className="flex flex-row justify-center items-center mt-4">
           <div className="flex flex-col items-center space-y-4">
             <h1 className="text-3xl bg-sky-400 p-4 rounded-md text-white border-slate-500 border-4">{"{CRN: "+crn+"}"} SWE 387 Sec-1 Attendace QR:</h1>
-            <Link to={'/Attend'}>
-              <img src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=localhost:5173/Attend.jsx' />
+            <Link to={'/Attend/'+crn}>
+              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=localhost:5173/Attend/:${crn}`} />
             </Link>
           </div>
         </div>
@@ -225,7 +205,6 @@ const q = query(roasterRef)
             </div>
           </div>
         </div>
-        {JSON.stringify(sectionRoaster)}
 
         <br /><br />
         <div className="flex justify-center mb-8">
